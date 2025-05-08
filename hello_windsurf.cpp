@@ -58,6 +58,7 @@ int main() {
     return 0;
   }
 
+
   // 计算和显示统计信息
   cout << "您输入的数字: ";
   for (size_t i = 0; i < numbers.size(); ++i) {
