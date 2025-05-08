@@ -89,21 +89,24 @@
 
 ### 编译和运行 C/C++ 程序
 
-1. 打开要编译的 `.cpp` 或 `.c` 文件
-2. 使用以下方法之一触发任务：
-   - 按下 `Ctrl+Shift+B`（默认构建快捷键）
-   - 命令面板（`Ctrl+Shift+P`）中选择 "Run Build Task"
-   - 终端菜单 → "Run Build Task"
-3. 如需执行编译后的程序：
-   - 命令面板中选择 "Run Test Task"
-   - 选择 "执行已编译程序" 任务
+1.  打开要编译的 `.cpp` 或 `.c` 文件。
+2.  触发编译任务：
+    *   方法一：按下 `Ctrl+Shift+B` (或 `Cmd+Shift+B` 在 macOS 上)，如果 "Clang++: 生成活动文件" 是默认构建任务。
+    *   方法二：打开命令面板 (`Ctrl+Shift+P` 或 `Cmd+Shift+P`)，输入 "Tasks: Run Build Task"，然后选择 "Clang++: 生成活动文件"。
+    *   方法三：通过终端菜单选择 "Run Build Task"，然后选择 "Clang++: 生成活动文件"。
+3.  执行编译后的程序：
+    *   打开命令面板 (`Ctrl+Shift+P` 或 `Cmd+Shift+P`)，输入 "Tasks: Run Test Task"，然后选择 "Clang++:执行已编译程序"。
+    *   或者，如果 "Clang++:执行已编译程序" 是默认测试任务，可以直接运行。
 
 ### 编译和运行 Fortran 程序
 
-1. 打开要编译的 `.f90` 或 `.f` 文件
-2. 命令面板中选择 "Run Task"
-3. 选择 "Fortran: gfortran 编译活动文件" 任务
-4. 运行程序时选择 "执行已编译Fortran程序" 任务
+1.  打开要编译的 `.f90` 或 `.f` 文件。
+2.  触发编译任务：
+    *   打开命令面板 (`Ctrl+Shift+P` 或 `Cmd+Shift+P`)，输入 "Tasks: Run Task"。
+    *   选择 "Fortran: gfortran 编译活动文件" 任务。
+3.  执行编译后的程序：
+    *   打开命令面板 (`Ctrl+Shift+P` 或 `Cmd+Shift+P`)，输入 "Tasks: Run Task"。
+    *   选择 "执行已编译Fortran程序" 任务。
 
 ### 使用 CMake 项目
 

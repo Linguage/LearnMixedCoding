@@ -14,7 +14,9 @@ int calculateSum(const vector<int> &numbers) {
 
 // 查找向量中的最大值和最小值
 pair<int, int> findMinMax(const vector<int> &numbers) {
-  auto [minIt, maxIt] = minmax_element(numbers.begin(), numbers.end());
+  auto minMaxPair = minmax_element(numbers.begin(), numbers.end());
+  auto minIt = minMaxPair.first;
+  auto maxIt = minMaxPair.second;
   return {*minIt, *maxIt};
 }
 
@@ -58,7 +60,6 @@ int main() {
     return 0;
   }
 
-
   // 计算和显示统计信息
   cout << "您输入的数字: ";
   for (size_t i = 0; i < numbers.size(); ++i) {
@@ -82,7 +83,9 @@ int main() {
 
   // 计算统计信息
   int sum = calculateSum(numbers);
-  auto [minVal, maxVal] = findMinMax(numbers);
+  auto minMaxVals = findMinMax(numbers);
+  int minVal = minMaxVals.first;
+  int maxVal = minMaxVals.second;
   double average = static_cast<double>(sum) / numbers.size();
 
   cout << "总和: " << sum << endl;
