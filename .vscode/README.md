@@ -39,6 +39,52 @@
 5. **执行已编译Fortran程序**
    - 功能：执行编译后的 Fortran 程序
 
+### CMake 相关任务
+
+除了上述通用的编译和执行任务外，还针对 CMake 项目提供了更细致的任务：
+
+1.  **CMake: 配置项目**
+    *   功能：配置位于工作区根目录的 CMake 项目。
+    *   源目录：`${workspaceFolder}`
+    *   构建目录：`${workspaceFolder}/build`
+    *   构建类型：Debug
+
+2.  **CMake: 构建项目**
+    *   功能：构建通过 "CMake: 配置项目" 配置的 CMake 项目。
+    *   依赖："CMake: 配置项目"
+
+3.  **CMake: 运行项目**
+    *   功能：运行工作区根目录下构建的名为 `main` 的可执行文件。
+    *   依赖："CMake: 构建项目"
+    *   可执行文件路径：`${workspaceFolder}/build/main`
+
+4.  **CMake: 清理项目**
+    *   功能：清理工作区根目录 CMake 项目的构建目录 (`${workspaceFolder}/build`)。
+
+5.  **CMake: 配置当前目录项目**
+    *   **适用场景**：当您的工作区包含多个独立的子项目，每个子项目都有自己的 `CMakeLists.txt` 文件时（例如 `multi_cpp_project` 示例）。
+    *   功能：配置当前打开文件所在目录下的 CMake 项目。
+    *   源目录：`${fileDirname}` (当前文件所在目录)
+    *   构建目录：`${fileDirname}/build`
+    *   构建类型：Debug
+    *   **使用方法**：打开子项目中的任意文件（如 `multi_cpp_project/src/main.cpp` 或 `multi_cpp_project/CMakeLists.txt`），然后从命令面板运行此任务。
+
+6.  **CMake: 构建当前目录项目**
+    *   **适用场景**：同上，用于构建已配置的子项目。
+    *   功能：构建通过 "CMake: 配置当前目录项目" 配置的 CMake 项目。
+    *   依赖："CMake: 配置当前目录项目"
+    *   **使用方法**：确保已先运行 "CMake: 配置当前目录项目"，然后从命令面板运行此任务。
+
+7.  **CMake: 运行当前目录项目**
+    *   **适用场景**：同上，用于运行子项目中生成的可执行文件。
+    *   功能：运行当前文件所在目录 CMake 项目构建生成的可执行文件。
+    *   依赖："CMake: 构建当前目录项目"
+    *   可执行文件路径：`${fileDirname}/build/bin/${input:executableName}`
+    *   **使用方法**：
+        *   确保已成功构建子项目。
+        *   从命令面板运行此任务。
+        *   系统会提示您输入可执行文件的名称。默认情况下，它会使用当前文件所在目录的名称 (例如，如果您在 `multi_cpp_project` 目录中，默认会是 `multi_cpp_project`)。如果您的 CMakeLists.txt 中定义的可执行文件名不同，请输入正确的名称。
+
 ## 使用方法
 
 ### 编译和运行 C/C++ 程序
@@ -58,6 +104,50 @@
 2. 命令面板中选择 "Run Task"
 3. 选择 "Fortran: gfortran 编译活动文件" 任务
 4. 运行程序时选择 "执行已编译Fortran程序" 任务
+
+### 使用 CMake 项目
+
+#### 1. 针对工作区根目录的 CMake 项目：
+
+*   **配置项目**：
+    1.  打开命令面板 (`Cmd+Shift+P` 或 `Ctrl+Shift+P`)。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 配置项目`。
+*   **构建项目**：
+    1.  打开命令面板。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 构建项目`。
+*   **运行项目** (假设可执行文件名为 `main`)：
+    1.  打开命令面板。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 运行项目`。
+*   **调试项目** (假设可执行文件名为 `main`，且 `launch.json` 中有对应配置如 "CMake: Debug")：
+    1.  打开调试视图。
+    2.  选择 "CMake: Debug" 配置。
+    3.  按 F5 或点击绿色播放按钮。
+
+#### 2. 针对子目录中的 CMake 项目 (例如 `multi_cpp_project`)：
+
+*   **打开子项目中的文件**：首先，在 VS Code 编辑器中打开位于子项目目录（例如 `multi_cpp_project/src/main.cpp`）中的任何一个文件。这是为了让 `${fileDirname}` 变量能够正确解析到子项目的路径。
+*   **配置子项目**：
+    1.  打开命令面板。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 配置当前目录项目`。
+*   **构建子项目**：
+    1.  打开命令面板。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 构建当前目录项目`。
+*   **运行子项目**：
+    1.  打开命令面板。
+    2.  输入并选择 `Tasks: Run Task`。
+    3.  选择 `CMake: 运行当前目录项目`。
+    4.  当提示输入可执行文件名时，输入您在子项目的 `CMakeLists.txt` 中定义的可执行文件名（例如 `MultiCppProject` 或 `calculator_test`）。默认会使用子目录的名称。
+*   **调试子项目** (且 `launch.json` 中有对应配置如 "CMake: Debug 当前目录项目")：
+    1.  确保已在子项目中打开一个文件。
+    2.  打开调试视图。
+    3.  选择 "CMake: Debug 当前目录项目" 配置。
+    4.  当提示输入可执行文件名时，输入正确的名称。
+    5.  按 F5 或点击绿色播放按钮。
 
 ## 配置原理和构建原则
 
@@ -120,28 +210,59 @@
 
 ### 可用的代码片段
 
-#### C/C++ 代码片段
+以下是本项目预配置的一些代码片段，您可以在相应的语言环境中使用它们来提高编码效率。
 
-| 触发前缀 | 描述 | 插入内容 |
-|---------|------|---------|
-| `main` | 主函数模板 | 完整的 main 函数框架 |
-| `inc` | 包含头文件 | `#include <>` 语句 |
-| `for` | for循环 | 标准 for 循环结构 |
-| `while` | while循环 | while 循环结构 |
-| `if` | if语句 | if 条件语句 |
-| `class` | 类定义 | 类定义模板 |
-| `func` | 函数定义 | 函数定义模板 |
+#### C/C++ 代码片段 (`.vscode/cpp.code-snippets`)
 
-#### Fortran 代码片段
+| 触发前缀        | 描述                                           |
+|-----------------|------------------------------------------------|
+| `cppstd`        | 标准C++程序模板，包含常用头文件和main函数        |
+| `cppclass`      | C++类定义模板，包含基本的类结构                  |
+| `cppfast`       | 竞赛用C++模板，包含快速输入输出设置              |
+| `cppalgo`       | 包含算法函数的C++程序模板                        |
+| `cppheader`     | C++头文件模板，包含头文件保护和命名空间            |
+| `cpphello`      | 最基础的C++ Hello World程序，用于测试C++环境     |
+| `cppleetcode`   | LeetCode题目解题模板，包含Solution类和测试功能   |
+| `cppcodforces`  | CodeForces竞赛专用模板，包含常用宏定义和多测试用例处理 |
 
-| 触发前缀 | 描述 | 插入内容 |
-|---------|------|---------|
-| `prog` | 程序模板 | 完整的程序框架 |
-| `sub` | 子程序 | 子程序模板 |
-| `func` | 函数 | 函数模板 |
-| `do` | do循环 | do 循环结构 |
-| `if` | if语句 | if-then-else 结构 |
-| `mod` | 模块 | 模块定义模板 |
+#### Fortran 代码片段 (`.vscode/fortran.code-snippets`)
+
+| 触发前缀        | 描述                               |
+|-----------------|------------------------------------|
+| `f90program`    | 基本的Fortran程序结构                |
+| `f90module`     | Fortran模块结构                      |
+| `f90function`   | Fortran函数结构                      |
+| `f90subroutine` | Fortran子程序结构                    |
+| `f90do`         | Fortran do循环结构                   |
+| `f90dowhile`    | Fortran do while循环结构             |
+| `f90if`         | Fortran if语句结构                   |
+| `f90ifelse`     | Fortran if-else语句结构              |
+| `f90ifelseif`   | Fortran if-elseif-else语句结构       |
+| `f90select`     | Fortran select case语句结构          |
+| `f90array`      | Fortran数组声明                      |
+| `f90allocarray` | Fortran可分配数组声明和分配          |
+| `f90openfile`   | 打开文件                             |
+| `f90closefile`  | 关闭文件                             |
+| `f90writefile`  | 写入文件                             |
+| `f90readfile`   | 从文件读取                           |
+| `f90matmul`     | 矩阵乘法                             |
+| `f90mpiinit`    | MPI初始化和终止                      |
+| `f90ompparallel`| OpenMP并行区域                       |
+| `f90ompdo`      | OpenMP并行循环                       |
+
+#### CMake 代码片段 (`.vscode/cmake.code-snippets`)
+
+| 触发前缀              | 描述                             |
+|-----------------------|----------------------------------|
+| `cmake-basic`         | 基础 CMake 项目模板                |
+| `cmake-mixed`         | C++/Fortran 混合项目模板         |
+| `cmake-exe`           | 添加可执行文件目标                 |
+| `cmake-lib`           | 添加库目标                         |
+| `cmake-link`          | 为目标链接库                       |
+| `cmake-find`          | 查找并链接外部包                   |
+| `cmake-add-subdir`    | 添加子目录                         |
+| `cmake-compile-options` | 为目标设置编译选项                 |
+| `cmake-single-exe`    | 从当前文件创建可执行文件           |
 
 ### 自定义代码片段
 

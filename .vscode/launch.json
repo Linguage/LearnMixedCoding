@@ -40,14 +40,40 @@
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "CMake: 构建项目",
             "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "CMake: Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "CMake: 构建项目"
+        },
+        {
+            "name": "CMake: Debug 当前目录项目",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/build/bin/${input:executableName}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "CMake: 构建当前目录项目"
         }
     ],
     "inputs": [
         {
             "id": "executableName",
             "type": "promptString",
-            "description": "可执行文件名称",
-            "default": "main"
+            "description": "请输入可执行文件的名称 (例如 main, calculator_test)",
+            "default": "${fileDirnameBasename}"
         }
     ]
 }

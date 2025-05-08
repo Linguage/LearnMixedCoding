@@ -14,7 +14,7 @@
         },
         {
             "type": "shell",
-            "label": "C/C++: clang++ 生成活动文件",
+            "label": "Clang++: 生成活动文件",
             "command": "/usr/bin/clang++",
             "args": [
                 "-g",
@@ -37,10 +37,10 @@
             "dependsOn": ["创建build目录"]
         },
         {
-            "label": "执行已编译程序",
+            "label": "Clang++:执行已编译程序",
             "type": "shell",
             "command": "${workspaceFolder}/build/${fileBasenameNoExtension}",
-            "dependsOn": ["C/C++: clang++ 生成活动文件"],
+            "dependsOn": ["Clang++: 生成活动文件"],
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -54,9 +54,9 @@
             "detail": "执行build目录中的可执行文件"
         },
         {
-            "label": "构建并运行",
+            "label": "Clang++:构建并运行",
             "dependsOrder": "sequence",
-            "dependsOn": ["C/C++: clang++ 生成活动文件", "执行已编译程序"],
+            "dependsOn": ["Clang++: 生成活动文件", "Clang++:执行已编译程序"],
             "group": {
                 "kind": "none"
             },
@@ -161,6 +161,84 @@
             "problemMatcher": [],
             "group": "build",
             "detail": "清理CMake构建目录"
+        },
+        {
+            "label": "CMake: 运行项目",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/main",
+            "dependsOn": ["CMake: 构建项目"],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "CMake: 配置当前目录项目",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S",
+                "${fileDirname}",
+                "-B",
+                "${fileDirname}/build",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "使用当前文件所在目录配置CMake项目"
+        },
+        {
+            "label": "CMake: 构建当前目录项目",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${fileDirname}/build",
+                "--config",
+                "Debug",
+                "-j",
+                "8"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": "$gcc",
+            "group": "build",
+            "detail": "构建当前文件所在目录的CMake项目",
+            "dependsOn": ["CMake: 配置当前目录项目"]
+        },
+        {
+            "label": "CMake: 运行当前目录项目",
+            "type": "shell",
+            "command": "${fileDirname}/build/bin/${input:executableName}",
+            "dependsOn": ["CMake: 构建当前目录项目"],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "executableName",
+            "type": "promptString",
+            "description": "请输入可执行文件的名称 (例如 main, calculator_test)",
+            "default": "${fileDirnameBasename}"
         }
     ]
 }
