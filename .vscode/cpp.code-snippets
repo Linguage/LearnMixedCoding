@@ -1,0 +1,136 @@
+{
+  "C++ 标准程序模板": {
+    "prefix": "cppstd",
+    "body": [
+      "#include <iostream>",
+      "#include <vector>",
+      "#include <string>",
+      "#include <algorithm>",
+      "",
+      "using namespace std;",
+      "",
+      "int main() {",
+      "\t// 设置输入输出流的同步",
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(0);",
+      "\t",
+      "\t$0",
+      "\t",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "标准C++程序模板，包含常用头文件和main函数",
+    "scope": "cpp"
+  },
+  "C++ 类模板": {
+    "prefix": "cppclass",
+    "body": [
+      "class ${1:ClassName} {",
+      "private:",
+      "\t// 成员变量",
+      "\t$2",
+      "",
+      "public:",
+      "\t// 构造函数",
+      "\t${1:ClassName}() {",
+      "\t\t$3",
+      "\t}",
+      "",
+      "\t// 析构函数",
+      "\t~${1:ClassName}() {",
+      "\t\t$4",
+      "\t}",
+      "",
+      "\t// 成员函数",
+      "\t$0",
+      "};"
+    ],
+    "description": "C++类定义模板，包含基本的类结构",
+    "scope": "cpp"
+  },
+  "C++ 快速IO模板": {
+    "prefix": "cppfast",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "using namespace std;",
+      "",
+      "#define int long long",
+      "#define all(x) (x).begin(),(x).end()",
+      "#define rall(x) (x).rbegin(),(x).rend()",
+      "",
+      "signed main() {",
+      "\t// 关闭同步加速IO",
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(nullptr);",
+      "\tcout.tie(nullptr);",
+      "\t",
+      "\t$0",
+      "\t",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "竞赛用C++模板，包含快速输入输出设置",
+    "scope": "cpp"
+  },
+  "C++ 简易算法模板": {
+    "prefix": "cppalgo",
+    "body": [
+      "#include <iostream>",
+      "#include <vector>",
+      "#include <algorithm>",
+      "",
+      "using namespace std;",
+      "",
+      "// 函数定义",
+      "${1:void} ${2:solve}(${3:vector<int>& nums}) {",
+      "\t$0",
+      "}",
+      "",
+      "int main() {",
+      "\t// 初始化数据",
+      "\t$4",
+      "\t",
+      "\t// 调用算法函数",
+      "\t${2:solve}($5);",
+      "\t",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "包含算法函数的C++程序模板",
+    "scope": "cpp"
+  },
+  "C++ 仅头文件模板": {
+    "prefix": "cppheader",
+    "body": [
+      "#ifndef ${1:HEADER_NAME}_H",
+      "#define ${1:HEADER_NAME}_H",
+      "",
+      "// 包含必要的头文件",
+      "#include <iostream>",
+      "#include <string>",
+      "",
+      "// 命名空间",
+      "namespace ${2:ns} {",
+      "\t$0",
+      "}",
+      "",
+      "#endif // ${1:HEADER_NAME}_H"
+    ],
+    "description": "C++头文件模板，包含头文件保护和命名空间",
+    "scope": "cpp"
+  },
+  "C++ Hello World模板": {
+    "prefix": "cpphello",
+    "body": [
+      "#include <iostream>",
+      "",
+      "int main() {",
+      "\tstd::cout << \"Hello, World!\" << std::endl;",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "最基础的C++ Hello World程序，用于测试C++环境",
+    "scope": "cpp"
+  }
+}

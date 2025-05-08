@@ -1,0 +1,66 @@
+# 忽略构建目录内的所有文件，但保留目录本身
+build/*
+!build/.gitkeep
+
+# 忽略编译产生的文件
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+
+# 忽略依赖和包管理文件夹
+/node_modules/
+/vendor/
+/packages/
+
+# 忽略调试信息和符号文件
+*.dSYM/
+*.pdb
+*.ilk
+*.exp
+*.map
+
+# 保留 .vscode 配置
+!.vscode/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+.Spotlight-V100
+.Trashes
+*~
+
+# 各种IDE临时文件
+*.swp
+*.swo
+*~
+.idea/
+*.cbp
+*.user
+*.suo
+
+# 日志文件
+*.log
+
+# 不忽略源代码和数据文件
+!*.cpp
+!*.c
+!*.h
+!*.hpp
+!*.f90
+!*.f
+!*.py
+!*.js
+!*.html
+!*.css
+!*.md
+!*.txt
+!*.csv
+!*.json
+!*.xml
+!*.yaml
+!*.yml
