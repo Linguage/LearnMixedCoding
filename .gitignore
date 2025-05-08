@@ -1,66 +1,68 @@
-# 忽略构建目录内的所有文件，但保留目录本身
-build/*
-!build/.gitkeep
+# 忽略构建目录内的所有文件和子目录
+**/build/
+
+# 如需保留 build 目录本身（空目录），可添加 .gitkeep 文件
+!**/build/.gitkeep
 
 # 忽略编译产生的文件
-*.o
-*.obj
-*.exe
-*.out
-*.app
-*.dll
-*.so
-*.dylib
+**/*.o
+**/*.obj
+**/*.exe
+**/*.out
+**/*.app
+**/*.dll
+**/*.so
+**/*.dylib
 
 # 忽略依赖和包管理文件夹
-/node_modules/
-/vendor/
-/packages/
+**/node_modules/
+**/vendor/
+**/packages/
 
 # 忽略调试信息和符号文件
-*.dSYM/
-*.pdb
-*.ilk
-*.exp
-*.map
+**/*.dSYM/
+**/*.pdb
+**/*.ilk
+**/*.exp
+**/*.map
 
 # 保留 .vscode 配置
-!.vscode/
+!**/.vscode/
 
 # 系统文件
-.DS_Store
-Thumbs.db
-.Spotlight-V100
-.Trashes
-*~
+**/.DS_Store
+**/Thumbs.db
+**/.Spotlight-V100
+**/.Trashes
+**/*~
 
 # 各种IDE临时文件
-*.swp
-*.swo
-*~
-.idea/
-*.cbp
-*.user
-*.suo
+**/*.swp
+**/*.swo
+**/*~
+**/.idea/
+**/*.cbp
+**/*.user
+**/*.suo
 
 # 日志文件
-*.log
+**/*.log
 
 # 不忽略源代码和数据文件
-!*.cpp
-!*.c
-!*.h
-!*.hpp
-!*.f90
-!*.f
-!*.py
-!*.js
-!*.html
-!*.css
-!*.md
-!*.txt
-!*.csv
-!*.json
-!*.xml
-!*.yaml
-!*.yml
+!**/*.cpp
+!**/*.c
+!**/*.h
+!**/*.hpp
+!**/*.f90
+!**/*.f
+!**/*.py
+!**/*.js
+!**/*.html
+!**/*.css
+!**/*.md
+!**/*.txt
+!**/*.csv
+!**/*.json
+!**/*.xml
+!**/*.yaml
+!**/*.yml

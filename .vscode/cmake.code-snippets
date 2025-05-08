@@ -1,0 +1,105 @@
+{
+    "CMake 基础模板": {
+        "prefix": "cmake-basic",
+        "body": [
+            "cmake_minimum_required(VERSION 3.10)",
+            "project(${1:ProjectName} LANGUAGES CXX)",
+            "",
+            "# 设置 C++ 标准",
+            "set(CMAKE_CXX_STANDARD 17)",
+            "set(CMAKE_CXX_STANDARD_REQUIRED ON)",
+            "",
+            "# 设置构建类型",
+            "set(CMAKE_BUILD_TYPE Debug)",
+            "",
+            "# 添加可执行文件",
+            "add_executable(${1:ProjectName} ${2:main.cpp})",
+            ""
+        ],
+        "description": "基础 CMake 项目模板"
+    },
+    "CMake C++/Fortran 混合项目": {
+        "prefix": "cmake-mixed",
+        "body": [
+            "cmake_minimum_required(VERSION 3.10)",
+            "project(${1:ProjectName} LANGUAGES CXX Fortran)",
+            "",
+            "# 设置 C++ 标准",
+            "set(CMAKE_CXX_STANDARD 17)",
+            "set(CMAKE_CXX_STANDARD_REQUIRED ON)",
+            "",
+            "# 启用 Fortran 支持",
+            "enable_language(Fortran)",
+            "",
+            "# 设置构建类型",
+            "set(CMAKE_BUILD_TYPE Debug)",
+            "",
+            "# 设置输出目录",
+            "set(CMAKE_RUNTIME_OUTPUT_DIRECTORY \\${CMAKE_BINARY_DIR})",
+            "",
+            "# 查找 C++ 源文件",
+            "file(GLOB_RECURSE CPP_SOURCES \"${2:src}/*.cpp\")",
+            "",
+            "# 查找 Fortran 源文件",
+            "file(GLOB_RECURSE FORTRAN_SOURCES \"${3:fortran}/*.f90\" \"${3:fortran}/*.f\")",
+            "",
+            "# 添加主可执行文件",
+            "add_executable(${1:ProjectName} \\${CPP_SOURCES} \\${FORTRAN_SOURCES})",
+            "",
+            "# 添加包含目录",
+            "target_include_directories(${1:ProjectName} PRIVATE ${4:include})",
+            ""
+        ],
+        "description": "C++/Fortran 混合项目模板"
+    },
+    "添加可执行文件": {
+        "prefix": "cmake-exe",
+        "body": [
+            "add_executable(${1:name} ${2:source.cpp})"
+        ],
+        "description": "添加可执行文件目标"
+    },
+    "添加库": {
+        "prefix": "cmake-lib",
+        "body": [
+            "add_library(${1:name} ${2|STATIC,SHARED,MODULE|} ${3:source.cpp})"
+        ],
+        "description": "添加库目标"
+    },
+    "链接库": {
+        "prefix": "cmake-link",
+        "body": [
+            "target_link_libraries(${1:target} ${2|PRIVATE,PUBLIC,INTERFACE|} ${3:library})"
+        ],
+        "description": "为目标链接库"
+    },
+    "查找包": {
+        "prefix": "cmake-find",
+        "body": [
+            "find_package(${1:PackageName} ${2:REQUIRED})",
+            "target_link_libraries(${3:target} PRIVATE ${1:PackageName}::${1:PackageName})"
+        ],
+        "description": "查找并链接外部包"
+    },
+    "添加子目录": {
+        "prefix": "cmake-add-subdir",
+        "body": [
+            "add_subdirectory(${1:dir})"
+        ],
+        "description": "添加子目录"
+    },
+    "设置编译选项": {
+        "prefix": "cmake-compile-options",
+        "body": [
+            "target_compile_options(${1:target} ${2|PRIVATE,PUBLIC,INTERFACE|} ${3:-Wall -Wextra})"
+        ],
+        "description": "为目标设置编译选项"
+    },
+    "单文件可执行文件": {
+        "prefix": "cmake-single-exe",
+        "body": [
+            "add_executable(${1:name} ${2:${TM_FILENAME}})"
+        ],
+        "description": "从当前文件创建可执行文件"
+    }
+}

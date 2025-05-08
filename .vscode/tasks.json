@@ -106,6 +106,61 @@
             },
             "problemMatcher": [],
             "detail": "构建当前Fortran文件并执行生成的程序"
+        },
+        {
+            "label": "CMake: 配置项目",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B",
+                "${workspaceFolder}/build",
+                "-S",
+                "${workspaceFolder}",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "配置CMake项目"
+        },
+        {
+            "label": "CMake: 构建项目",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Debug",
+                "-j",
+                "8"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc",
+            "group": "build",
+            "detail": "构建CMake项目",
+            "dependsOn": [
+                "CMake: 配置项目"
+            ]
+        },
+        {
+            "label": "CMake: 清理项目",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/build/*"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build",
+            "detail": "清理CMake构建目录"
         }
     ]
 }
